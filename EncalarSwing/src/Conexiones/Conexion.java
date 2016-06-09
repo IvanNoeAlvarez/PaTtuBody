@@ -1,8 +1,11 @@
 package Conexiones;
 
 import java.beans.Statement;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Conexion {
 
@@ -61,21 +64,109 @@ public class Conexion {
 
 	}
 
-
-
 	public ResultSet verConcesionario() {
+		
+		Conexion conex = Conexion.LlamarInst();
+		
+			java.sql.Statement st;
+			
+			ResultSet rs = null;
 
+			try {
+				
+				 st = con.createStatement();
+				rs = st.executeQuery("SELECT * FROM concesionario;");
+
+
+			} catch (SQLException e) {
+				e.getMessage();
+				
+			}
+			return rs;
+		}
+	
+public ResultSet verClientes() {
+		
+		Conexion conex = Conexion.LlamarInst();
+		
+			java.sql.Statement st;
+			
+			ResultSet rs = null;
+
+			try {
+				
+				 st = con.createStatement();
+				rs = st.executeQuery("SELECT * FROM cliente;");
+
+
+			} catch (SQLException e) {
+				e.getMessage();
+				
+			}
+			return rs;
+		}
+	
+	public ResultSet buscar (String nombre) {
+		Conexion.LlamarInst();
+		PreparedStatement pst;
 		ResultSet rs = null;
-
+		
 		try {
-
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM concesionario");
-
+			
+			pst= con.prepareStatement("SELECT * FROM concesionario WHERE nombre=?");
+			pst.setString(1, nombre);
 			rs = pst.executeQuery();
-
-		} catch (SQLException e) {
+			
+		}catch(Exception e) {
 			e.getMessage();
 		}
+		
+		
 		return rs;
 	}
+	
+	
+	public void venderCoche (String dni, String nombre, String coche, String matriculaC, String TipoDeposito,Double consumo, int cantidadDeposito) {
+		Conexion.LlamarInst();
+		PreparedStatement pst;
+		
+		
+		try{
+			pst = con.prepareStatement("INSERT INTO cliente (dni, nombre, coche, matriculaC, tipoDeposito,consumo, cantidadDeposito) VALUES (?,?,?,?,?,?)");
+			pst.setString(1, dni);
+			pst.setString(2, nombre);
+			pst.setString(3,coche);
+			pst.setString(4, matriculaC);
+			pst.setString(5, TipoDeposito);
+			pst.setDouble(6, consumo);
+			pst.setInt(7, cantidadDeposito);
+			pst.execute();
+			
+		}catch(Exception e) {
+			e.getMessage();
+		}
+		
+		
+		
+	}
+
+	
+	public void borrarC (String dni) {
+		PreparedStatement pst;
+		
+		try{
+			
+			pst = con.prepareStatement("DELETE FROM cliente WHERE dni =?" );
+			pst.setString(1, dni);
+			
+			pst.execute();
+		}catch(Exception e) {
+			e.getMessage();
+		}
+		
+		
+		
+	}
+
+	
 }

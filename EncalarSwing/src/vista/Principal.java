@@ -2,6 +2,9 @@ package vista;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import Modelo.Fondo;
+
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -19,7 +22,7 @@ public class Principal extends JPanel {
 	public Principal() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel = new JPanel();
+		Fondo panel = new Fondo();
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -37,6 +40,7 @@ public class Principal extends JPanel {
 		panel.add(añadir, gbc_añadir);
 		
 		disponible = new JButton("vehiculos disponibles");
+		
 		GridBagConstraints gbc_disponible = new GridBagConstraints();
 		gbc_disponible.insets = new Insets(0, 0, 5, 0);
 		gbc_disponible.gridx = 6;
@@ -50,7 +54,7 @@ public class Principal extends JPanel {
 		gbc_buscar.gridy = 7;
 		panel.add(buscar, gbc_buscar);
 		
-		JPanel panel_1 = new JPanel();
+		Fondo panel_1 = new Fondo();
 		add(panel_1, BorderLayout.WEST);
 	}
 		public JButton getdisponible () {

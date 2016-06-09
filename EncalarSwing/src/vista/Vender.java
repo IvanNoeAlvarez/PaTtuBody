@@ -4,11 +4,17 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import javax.xml.bind.ParseConversionEvent;
+
+import Conexiones.Conexion;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -23,6 +29,7 @@ public class Vender extends JPanel {
 	
 	private JButton atras;
 	private JButton vender;
+	private JTextField consumoT;
 
 	/**
 	 * Create the panel.
@@ -119,19 +126,35 @@ public class Vender extends JPanel {
 		panelD.add(tipoT, gbc_tipoT);
 		tipoT.setColumns(10);
 		
+		JLabel consumo = new JLabel("consumo");
+		GridBagConstraints gbc_consumo = new GridBagConstraints();
+		gbc_consumo.insets = new Insets(0, 0, 5, 5);
+		gbc_consumo.gridx = 0;
+		gbc_consumo.gridy = 6;
+		panelD.add(consumo, gbc_consumo);
+		
+		consumoT = new JTextField();
+		GridBagConstraints gbc_consumoT = new GridBagConstraints();
+		gbc_consumoT.insets = new Insets(0, 0, 5, 5);
+		gbc_consumoT.fill = GridBagConstraints.HORIZONTAL;
+		gbc_consumoT.gridx = 1;
+		gbc_consumoT.gridy = 6;
+		panelD.add(consumoT, gbc_consumoT);
+		consumoT.setColumns(10);
+		
 		JLabel cant = new JLabel("cantidad");
 		GridBagConstraints gbc_cant = new GridBagConstraints();
-		gbc_cant.insets = new Insets(0, 0, 5, 5);
+		gbc_cant.insets = new Insets(0, 0, 0, 5);
 		gbc_cant.gridx = 0;
-		gbc_cant.gridy = 6;
+		gbc_cant.gridy = 7;
 		panelD.add(cant, gbc_cant);
 		
 		cantT = new JTextField();
 		GridBagConstraints gbc_cantT = new GridBagConstraints();
-		gbc_cantT.insets = new Insets(0, 0, 5, 5);
+		gbc_cantT.insets = new Insets(0, 0, 0, 5);
 		gbc_cantT.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cantT.gridx = 1;
-		gbc_cantT.gridy = 6;
+		gbc_cantT.gridy = 7;
 		panelD.add(cantT, gbc_cantT);
 		cantT.setColumns(10);
 		
@@ -143,6 +166,25 @@ public class Vender extends JPanel {
 		panelInf.add(atras);
 		
 		 vender = new JButton("A\u00F1adir");
+		 vender.addActionListener(new ActionListener() {
+		 	public void actionPerformed(ActionEvent arg0) {
+		 		
+		 		Conexion conex = Conexion.LlamarInst();
+		 		
+		 		String dni = dniT.getText().toString();
+		 		String nombre = nombreT.getText().toString();
+		 		String coche = cocheT.getText().toString();
+		 		String matriculaC = matriculaT.getText().toString();
+		 		String TipoDeposito= tipoT.getText().toString();
+		 		Double consumo = Double.parseDouble(consumoT.getText().toString());
+
+		 		Integer cantidadDeposito = Integer.parseInt(cantT.getText().toString());
+		 		
+		 		conex.venderCoche(dni, nombre, coche, matriculaC, TipoDeposito,consumo, cantidadDeposito);
+		 			
+		 		JOptionPane.showInputDialog(null, "VENDIDO");
+		 	}
+		 });
 		panelInf.add(vender);
 
 	}

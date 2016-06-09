@@ -18,14 +18,12 @@ public class Ventana extends JFrame {
 	final static String Principal = "Principal";
 	final static String Vehiculos = "Vehiculos";
 	final static String Buscar = "Buscar";
-	final static String añadeSuministro = "añadeSuministro";
 	final static String Vender = "vender";
 
 	Principal v0 = new Principal();
 	Vehiculos v1 = new Vehiculos();
 	Buscar v2 = new Buscar();
-	añadeSuministro v3 = new añadeSuministro();
-	Vender v4 = new Vender();
+	Vender v3 = new Vender();
 
 	CardLayout c1;
 
@@ -61,8 +59,8 @@ public class Ventana extends JFrame {
 		contentPane.add(v0, Principal);
 		contentPane.add(v1, Vehiculos);
 		contentPane.add(v2, Buscar);
-		contentPane.add(v3, añadeSuministro);
-		contentPane.add(v4, Vender);
+		
+		contentPane.add(v3, Vender);
 		
 		
 		 CardLayout c1 = (CardLayout)(contentPane.getLayout());
@@ -75,13 +73,9 @@ public class Ventana extends JFrame {
 			}
 		});
 		
-		v1.getsuministro().addActionListener(new ActionListener() {
-		 	public void actionPerformed(ActionEvent arg0) {
-		 		c1.show(contentPane, añadeSuministro);
-		 	}
-		 });
 		
-		v4.getatras().addActionListener(new ActionListener() {
+		
+		v3.getatras().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				c1.show(contentPane, Principal);
@@ -102,6 +96,26 @@ public class Ventana extends JFrame {
 				
 			}
 		});
+		
+		
+		v0.getdisponible().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				c1.show(contentPane, Vehiculos);
+				
+				
+			}
+		});
+		
+		
+		v1.getAtras().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				c1.show(contentPane, Principal);
+			}
+		});
+		
+		
+		
 	}
 
 }
