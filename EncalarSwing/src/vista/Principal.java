@@ -1,5 +1,6 @@
 package vista;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -11,6 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class Principal extends JPanel {
 
@@ -18,11 +20,19 @@ public class Principal extends JPanel {
 	private JButton disponible;
 	private JButton buscar;
 	private JButton añadir;
+
 	
 	public Principal() {
+		
+	
+		
+		
 		setLayout(new BorderLayout(0, 0));
 		
-		Fondo panel = new Fondo();
+		
+		
+		JPanel panel = new JPanel();
+
 		add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -31,9 +41,12 @@ public class Principal extends JPanel {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		añadir = new JButton("vender coche");
+; 
+		
+		añadir = new JButton("A\u00F1adir coche");
 		
 		GridBagConstraints gbc_añadir = new GridBagConstraints();
+		gbc_añadir.fill = GridBagConstraints.HORIZONTAL;
 		gbc_añadir.insets = new Insets(0, 0, 5, 0);
 		gbc_añadir.gridx = 6;
 		gbc_añadir.gridy = 3;
@@ -53,9 +66,6 @@ public class Principal extends JPanel {
 		gbc_buscar.gridx = 6;
 		gbc_buscar.gridy = 7;
 		panel.add(buscar, gbc_buscar);
-		
-		Fondo panel_1 = new Fondo();
-		add(panel_1, BorderLayout.WEST);
 	}
 		public JButton getdisponible () {
 			return this.disponible;

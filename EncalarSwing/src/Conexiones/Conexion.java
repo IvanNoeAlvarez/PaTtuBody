@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.table.DefaultTableModel;
+
 public class Conexion {
 
 	static Connection con; // ATRIBUTO PARA GUARDAR EL OBJETO CONEXION
@@ -14,7 +16,7 @@ public class Conexion {
 
 	private Conexion() {
 		datosConexion();
-	
+
 	}
 
 	private synchronized static void crearInstancia() { // SI NO EXISTE UNA
@@ -64,109 +66,136 @@ public class Conexion {
 
 	}
 
+	//////////////////////////// CONSULTAS/////////////////////////////////////////////////////
+
 	public ResultSet verConcesionario() {
-		
+
 		Conexion conex = Conexion.LlamarInst();
-		
-			java.sql.Statement st;
-			
-			ResultSet rs = null;
 
-			try {
-				
-				 st = con.createStatement();
-				rs = st.executeQuery("SELECT * FROM concesionario;");
+		java.sql.Statement st;
 
+		ResultSet rs = null;
 
-			} catch (SQLException e) {
-				e.getMessage();
-				
-			}
-			return rs;
+		try {
+
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT * FROM concesionario;");
+
+		} catch (SQLException e) {
+			e.getMessage();
+
 		}
-	
-public ResultSet verClientes() {
-		
+		return rs;
+	}
+
+	public ResultSet verClientes() {
+
 		Conexion conex = Conexion.LlamarInst();
-		
-			java.sql.Statement st;
-			
-			ResultSet rs = null;
 
-			try {
-				
-				 st = con.createStatement();
-				rs = st.executeQuery("SELECT * FROM cliente;");
+		java.sql.Statement st;
 
+		ResultSet rs = null;
 
-			} catch (SQLException e) {
-				e.getMessage();
-				
-			}
-			return rs;
+		try {
+
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT * FROM coches;");
+
+		} catch (SQLException e) {
+			e.getMessage();
+
 		}
+		return rs;
+	}
+
+	public ResultSet buscarConcesionario(String nombre) {
+		Conexion.LlamarInst();
+		PreparedStatement pst;
+		ResultSet rs = null;
 	
-	public ResultSet buscar (String nombre) {
+
+		try {
+			pst = con.prepareStatement("SELECT * FROM concesionario WHERE nombre =?");
+			pst.setString(1, nombre);
+			rs = pst.executeQuery();
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		return rs;
+	}
+
+	public ResultSet buscarCoche(String coche) {
 		Conexion.LlamarInst();
 		PreparedStatement pst;
 		ResultSet rs = null;
 		
+
+
 		try {
-			
-			pst= con.prepareStatement("SELECT * FROM concesionario WHERE nombre=?");
-			pst.setString(1, nombre);
+
+			pst = con.prepareStatement("SELECT * FROM coches WHERE coche =?");
+			pst.setString(1, coche);
 			rs = pst.executeQuery();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.getMessage();
 		}
-		
-		
+
 		return rs;
 	}
-	
-	
-	public void venderCoche (String dni, String nombre, String coche, String matriculaC, String TipoDeposito,Double consumo, int cantidadDeposito) {
+
+	public void añadeCoche(String coche, String matriculaC, String TipoDeposito, Double consumo, int cantidadDeposito,
+			int precio) {
 		Conexion.LlamarInst();
 		PreparedStatement pst;
-		
-		
-		try{
-			pst = con.prepareStatement("INSERT INTO cliente (dni, nombre, coche, matriculaC, tipoDeposito,consumo, cantidadDeposito) VALUES (?,?,?,?,?,?)");
-			pst.setString(1, dni);
-			pst.setString(2, nombre);
-			pst.setString(3,coche);
-			pst.setString(4, matriculaC);
-			pst.setString(5, TipoDeposito);
-			pst.setDouble(6, consumo);
-			pst.setInt(7, cantidadDeposito);
+
+		try {
+			pst = con.prepareStatement(
+					"INSERT INTO coches ( coche, matriculaC, tipoDeposito,consumo, cantidadDeposito,precio) VALUES (?,?,?,?,?,?)");
+
+			pst.setString(1, coche);
+			pst.setString(2, matriculaC);
+			pst.setString(3, TipoDeposito);
+			pst.setDouble(4, consumo);
+			pst.setInt(5, cantidadDeposito);
+			pst.setInt(6, precio);
 			pst.execute();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.getMessage();
 		}
-		
-		
-		
+
 	}
 
-	
-	public void borrarC (String dni) {
+	public void ActualizarS(String matricula, int cantidad) {
 		PreparedStatement pst;
-		
-		try{
-			
-			pst = con.prepareStatement("DELETE FROM cliente WHERE dni =?" );
-			pst.setString(1, dni);
-			
-			pst.execute();
-		}catch(Exception e) {
+		try {
+			pst = con.prepareStatement("UPDATE coches SET cantidadDeposito=? WHERE matriculaC =?");
+			pst.setInt(1, cantidad);
+			pst.setString(2, matricula);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
 			e.getMessage();
 		}
-		
-		
-		
+
 	}
 
-	
+	public void borrarC(String matricula) {
+		PreparedStatement pst;
+
+		try {
+
+			pst = con.prepareStatement("DELETE FROM coches WHERE matriculaC =?");
+			pst.setString(1, matricula);
+			pst.execute();
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
+
 }

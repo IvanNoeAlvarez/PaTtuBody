@@ -6,6 +6,7 @@ public class Datos {
 	String coche;
 	String matriculaC;
 	String TipoDeposito;
+	Double consumo;
 	int cantidadDeposito;
 	int id_concesionario;
 	String Localidad;
@@ -38,6 +39,14 @@ public class Datos {
 	public String getTipoDeposito() {
 		return TipoDeposito;
 	}
+	
+	public Double getConsumo() {
+		return consumo;
+	}
+	public void setConsumo(Double consumo) {
+		this.consumo = consumo;
+	}
+	
 	public void setTipoDeposito(String tipoDeposito) {
 		TipoDeposito = tipoDeposito;
 	}

@@ -19,22 +19,21 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Vender extends JPanel {
-	private JTextField nombreT;
+public class Añade extends JPanel {
 	private JTextField cocheT;
 	private JTextField matriculaT;
 	private JTextField tipoT;
 	private JTextField cantT;
-	private JTextField dniT;
 	
 	private JButton atras;
-	private JButton vender;
+	private JButton add;
 	private JTextField consumoT;
+	private JTextField precioT;
 
 	/**
 	 * Create the panel.
 	 */
-	public Vender() {
+	public Añade() {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelD = new JPanel();
@@ -46,51 +45,19 @@ public class Vender extends JPanel {
 		gbl_panelD.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelD.setLayout(gbl_panelD);
 		
-		JLabel dni = new JLabel("dni");
-		GridBagConstraints gbc_dni = new GridBagConstraints();
-		gbc_dni.insets = new Insets(0, 0, 5, 5);
-		gbc_dni.gridx = 0;
-		gbc_dni.gridy = 1;
-		panelD.add(dni, gbc_dni);
-		
-		dniT = new JTextField();
-		GridBagConstraints gbc_dniT = new GridBagConstraints();
-		gbc_dniT.insets = new Insets(0, 0, 5, 5);
-		gbc_dniT.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dniT.gridx = 1;
-		gbc_dniT.gridy = 1;
-		panelD.add(dniT, gbc_dniT);
-		dniT.setColumns(10);
-		
-		JLabel nombre = new JLabel("nombre");
-		GridBagConstraints gbc_nombre = new GridBagConstraints();
-		gbc_nombre.insets = new Insets(0, 0, 5, 5);
-		gbc_nombre.gridx = 0;
-		gbc_nombre.gridy = 2;
-		panelD.add(nombre, gbc_nombre);
-		
-		nombreT = new JTextField();
-		GridBagConstraints gbc_nombreT = new GridBagConstraints();
-		gbc_nombreT.anchor = GridBagConstraints.NORTHWEST;
-		gbc_nombreT.insets = new Insets(0, 0, 5, 5);
-		gbc_nombreT.gridx = 1;
-		gbc_nombreT.gridy = 2;
-		panelD.add(nombreT, gbc_nombreT);
-		nombreT.setColumns(10);
-		
-		JLabel coche = new JLabel("coche");
-		GridBagConstraints gbc_coche = new GridBagConstraints();
-		gbc_coche.insets = new Insets(0, 0, 5, 5);
-		gbc_coche.gridx = 0;
-		gbc_coche.gridy = 3;
-		panelD.add(coche, gbc_coche);
+		JLabel coche_1 = new JLabel("coche");
+		GridBagConstraints gbc_coche_1 = new GridBagConstraints();
+		gbc_coche_1.insets = new Insets(0, 0, 5, 5);
+		gbc_coche_1.gridx = 0;
+		gbc_coche_1.gridy = 2;
+		panelD.add(coche_1, gbc_coche_1);
 		
 		cocheT = new JTextField();
 		GridBagConstraints gbc_cocheT = new GridBagConstraints();
 		gbc_cocheT.insets = new Insets(0, 0, 5, 5);
 		gbc_cocheT.anchor = GridBagConstraints.NORTHWEST;
 		gbc_cocheT.gridx = 1;
-		gbc_cocheT.gridy = 3;
+		gbc_cocheT.gridy = 2;
 		panelD.add(cocheT, gbc_cocheT);
 		cocheT.setColumns(10);
 		
@@ -98,7 +65,7 @@ public class Vender extends JPanel {
 		GridBagConstraints gbc_matricula = new GridBagConstraints();
 		gbc_matricula.insets = new Insets(0, 0, 5, 5);
 		gbc_matricula.gridx = 0;
-		gbc_matricula.gridy = 4;
+		gbc_matricula.gridy = 3;
 		panelD.add(matricula, gbc_matricula);
 		
 		matriculaT = new JTextField();
@@ -106,7 +73,7 @@ public class Vender extends JPanel {
 		gbc_matriculaT.insets = new Insets(0, 0, 5, 5);
 		gbc_matriculaT.fill = GridBagConstraints.HORIZONTAL;
 		gbc_matriculaT.gridx = 1;
-		gbc_matriculaT.gridy = 4;
+		gbc_matriculaT.gridy = 3;
 		panelD.add(matriculaT, gbc_matriculaT);
 		matriculaT.setColumns(10);
 		
@@ -114,7 +81,7 @@ public class Vender extends JPanel {
 		GridBagConstraints gbc_tipo = new GridBagConstraints();
 		gbc_tipo.insets = new Insets(0, 0, 5, 5);
 		gbc_tipo.gridx = 0;
-		gbc_tipo.gridy = 5;
+		gbc_tipo.gridy = 4;
 		panelD.add(tipo, gbc_tipo);
 		
 		tipoT = new JTextField();
@@ -122,41 +89,57 @@ public class Vender extends JPanel {
 		gbc_tipoT.insets = new Insets(0, 0, 5, 5);
 		gbc_tipoT.fill = GridBagConstraints.HORIZONTAL;
 		gbc_tipoT.gridx = 1;
-		gbc_tipoT.gridy = 5;
+		gbc_tipoT.gridy = 4;
 		panelD.add(tipoT, gbc_tipoT);
 		tipoT.setColumns(10);
 		
-		JLabel consumo = new JLabel("consumo");
-		GridBagConstraints gbc_consumo = new GridBagConstraints();
-		gbc_consumo.insets = new Insets(0, 0, 5, 5);
-		gbc_consumo.gridx = 0;
-		gbc_consumo.gridy = 6;
-		panelD.add(consumo, gbc_consumo);
+		JLabel consumo_1 = new JLabel("consumo");
+		GridBagConstraints gbc_consumo_1 = new GridBagConstraints();
+		gbc_consumo_1.insets = new Insets(0, 0, 5, 5);
+		gbc_consumo_1.gridx = 0;
+		gbc_consumo_1.gridy = 5;
+		panelD.add(consumo_1, gbc_consumo_1);
 		
 		consumoT = new JTextField();
 		GridBagConstraints gbc_consumoT = new GridBagConstraints();
 		gbc_consumoT.insets = new Insets(0, 0, 5, 5);
 		gbc_consumoT.fill = GridBagConstraints.HORIZONTAL;
 		gbc_consumoT.gridx = 1;
-		gbc_consumoT.gridy = 6;
+		gbc_consumoT.gridy = 5;
 		panelD.add(consumoT, gbc_consumoT);
 		consumoT.setColumns(10);
 		
 		JLabel cant = new JLabel("cantidad");
 		GridBagConstraints gbc_cant = new GridBagConstraints();
-		gbc_cant.insets = new Insets(0, 0, 0, 5);
+		gbc_cant.insets = new Insets(0, 0, 5, 5);
 		gbc_cant.gridx = 0;
-		gbc_cant.gridy = 7;
+		gbc_cant.gridy = 6;
 		panelD.add(cant, gbc_cant);
 		
 		cantT = new JTextField();
 		GridBagConstraints gbc_cantT = new GridBagConstraints();
-		gbc_cantT.insets = new Insets(0, 0, 0, 5);
+		gbc_cantT.insets = new Insets(0, 0, 5, 5);
 		gbc_cantT.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cantT.gridx = 1;
-		gbc_cantT.gridy = 7;
+		gbc_cantT.gridy = 6;
 		panelD.add(cantT, gbc_cantT);
 		cantT.setColumns(10);
+		
+		JLabel precio = new JLabel("precio");
+		GridBagConstraints gbc_precio = new GridBagConstraints();
+		gbc_precio.insets = new Insets(0, 0, 0, 5);
+		gbc_precio.gridx = 0;
+		gbc_precio.gridy = 7;
+		panelD.add(precio, gbc_precio);
+		
+		precioT = new JTextField();
+		GridBagConstraints gbc_precioT = new GridBagConstraints();
+		gbc_precioT.insets = new Insets(0, 0, 0, 5);
+		gbc_precioT.fill = GridBagConstraints.HORIZONTAL;
+		gbc_precioT.gridx = 1;
+		gbc_precioT.gridy = 7;
+		panelD.add(precioT, gbc_precioT);
+		precioT.setColumns(10);
 		
 		JPanel panelInf = new JPanel();
 		add(panelInf, BorderLayout.SOUTH);
@@ -165,32 +148,30 @@ public class Vender extends JPanel {
 		
 		panelInf.add(atras);
 		
-		 vender = new JButton("A\u00F1adir");
-		 vender.addActionListener(new ActionListener() {
+		 add = new JButton("A\u00F1adir");
+		 add.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
 		 		
 		 		Conexion conex = Conexion.LlamarInst();
 		 		
-		 		String dni = dniT.getText().toString();
-		 		String nombre = nombreT.getText().toString();
+		 	
 		 		String coche = cocheT.getText().toString();
 		 		String matriculaC = matriculaT.getText().toString();
 		 		String TipoDeposito= tipoT.getText().toString();
 		 		Double consumo = Double.parseDouble(consumoT.getText().toString());
-
 		 		Integer cantidadDeposito = Integer.parseInt(cantT.getText().toString());
-		 		
-		 		conex.venderCoche(dni, nombre, coche, matriculaC, TipoDeposito,consumo, cantidadDeposito);
+		 		Integer precio = Integer.parseInt(precioT.getText().toString());
+		 		conex.añadeCoche( coche, matriculaC, TipoDeposito,consumo, cantidadDeposito,precio);
 		 			
-		 		JOptionPane.showInputDialog(null, "VENDIDO");
+		 		JOptionPane.showMessageDialog(null, "COCHE AÑADIDO CORRECTAMENTE");
 		 	}
 		 });
-		panelInf.add(vender);
+		panelInf.add(add);
 
 	}
 	
 	public JButton getvender () {
-		return this.vender;
+		return this.add;
 	}
 
 	public JButton getatras () {
