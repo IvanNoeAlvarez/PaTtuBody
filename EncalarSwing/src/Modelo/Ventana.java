@@ -97,7 +97,7 @@ public class Ventana extends JFrame {
 		});
 		
 		
-		v1.getComprar().addActionListener(new ActionListener() {
+		v1.getlistaC().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c1.show(contentPane, Comprar);
 			}

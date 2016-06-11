@@ -78,12 +78,29 @@ public class Vehiculos extends JPanel {
 		comprar = new JButton("Comprar");
 		comprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				conex.LlamarInst();
+				
+				int fila;
+				fila = table.getSelectedRow();
+	
+				String coche = (String) dtm.getValueAt(fila, 0);
+				String matriculaC = (String) dtm.getValueAt(fila, 1);
+				String TipoDeposito = (String) dtm.getValueAt(fila, 2);
+				Double consumo = (Double) dtm.getValueAt(fila, 3);
+				Integer cantidadDeposito = (Integer) dtm.getValueAt(fila, 4);
+				Integer precio = (Integer) dtm.getValueAt(fila, 5);
+				
+				conex.compraCoche(coche, matriculaC, TipoDeposito, consumo, cantidadDeposito, precio);
+				
 			}
 		});
 		panel.add(comprar);
 
 		listaC = new JButton("Lista de Compra");
+		listaC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		panel.add(listaC);
 		listaC.disable();
 		panel_1 = new JPanel();
@@ -192,8 +209,8 @@ public class Vehiculos extends JPanel {
 		return this.suministro;
 	}
 
-	public JButton getComprar() {
-		return comprar;
+	public JButton getlistaC() {
+		return this.listaC;
 	}
 
 	public JButton getAtras() {

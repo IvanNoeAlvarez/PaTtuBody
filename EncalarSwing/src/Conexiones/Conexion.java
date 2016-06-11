@@ -107,19 +107,46 @@ public class Conexion {
 		}
 		return rs;
 	}
+	
+	public ResultSet verCompra() {
+
+		Conexion conex = Conexion.LlamarInst();
+
+		java.sql.Statement st;
+
+		ResultSet rs = null;
+
+		try {
+
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT * FROM listaCompra;");
+
+		} catch (SQLException e) {
+			e.getMessage();
+
+		}
+		return rs;
+	}
 
 	public ResultSet buscarConcesionario(String nombre) {
 		Conexion.LlamarInst();
 		PreparedStatement pst;
 		ResultSet rs = null;
 	
-
 		try {
-			pst = con.prepareStatement("SELECT * FROM concesionario WHERE nombre =?");
-			pst.setString(1, nombre);
-			rs = pst.executeQuery();
-
-		} catch (Exception e) {
+			   if (!nombre.isEmpty()) {
+			    pst = con.prepareStatement("SELECT * FROM concesionario WHERE nombre like ? or id_concesionario=? or Localidad like ?");
+			    pst.setString(1, nombre+"%");
+			    pst.setString(2, nombre+"%");
+			    pst.setString(3, nombre+"%");
+			    System.out.println(pst.toString());
+			    rs = pst.executeQuery();
+			   }else{
+			    pst = con.prepareStatement("SELECT * FROM concesionario");
+			    rs = pst.executeQuery();
+			   
+		}
+		}catch (Exception e) {
 			e.getMessage();
 		}
 
@@ -132,12 +159,18 @@ public class Conexion {
 		ResultSet rs = null;
 		
 
-
 		try {
-
-			pst = con.prepareStatement("SELECT * FROM coches WHERE coche =?");
-			pst.setString(1, coche);
-			rs = pst.executeQuery();
+			   if (!coche.isEmpty()) {
+			    pst = con.prepareStatement("SELECT * FROM coches WHERE  coche like ? or TipoDeposito like ? or precio < ?");
+			    pst.setString(1, coche+"%");
+			    pst.setString(2, coche+"%");
+			    pst.setString(3, coche+"%");
+			    System.out.println(pst.toString());
+			    rs = pst.executeQuery();
+			   }else{
+			    pst = con.prepareStatement("SELECT * FROM coches");
+			    rs = pst.executeQuery();
+			   }
 
 		} catch (Exception e) {
 			e.getMessage();
@@ -198,4 +231,28 @@ public class Conexion {
 
 	}
 
+	
+	public void compraCoche(String coche, String matriculaC, String TipoDeposito, Double consumo, int cantidadDeposito,
+			int precio) {
+		Conexion.LlamarInst();
+		PreparedStatement pst;
+
+		try {
+			pst = con.prepareStatement(
+					"INSERT INTO listaCompra ( coche, matriculaC, tipoDeposito,consumo, cantidadDeposito,precio) VALUES (?,?,?,?,?,?)");
+
+			pst.setString(1, coche);
+			pst.setString(2, matriculaC);
+			pst.setString(3, TipoDeposito);
+			pst.setDouble(4, consumo);
+			pst.setInt(5, cantidadDeposito);
+			pst.setInt(6, precio);
+			pst.execute();
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
+	
 }
