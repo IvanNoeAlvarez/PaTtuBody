@@ -99,11 +99,7 @@ public class Vehiculos extends JPanel {
 		panel.add(comprar);
 
 		listaC = new JButton("Lista de Compra");
-		listaC.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
+		
 		panel.add(listaC);
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.SOUTH);
