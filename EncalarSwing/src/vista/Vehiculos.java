@@ -33,6 +33,7 @@ public class Vehiculos extends JPanel {
 	private JButton comprar;
 	private JButton listaC;
 
+
 	/**
 	 * Create the panel.
 	 */
@@ -74,7 +75,7 @@ public class Vehiculos extends JPanel {
 			}
 		});
 		panel.add(buscar);
-
+	
 		comprar = new JButton("Comprar");
 		comprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -92,6 +93,7 @@ public class Vehiculos extends JPanel {
 				
 				conex.compraCoche(coche, matriculaC, TipoDeposito, consumo, cantidadDeposito, precio);
 				
+			
 			}
 		});
 		panel.add(comprar);
@@ -99,10 +101,10 @@ public class Vehiculos extends JPanel {
 		listaC = new JButton("Lista de Compra");
 		listaC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 		panel.add(listaC);
-		listaC.disable();
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.SOUTH);
 

@@ -67,6 +67,10 @@ public class Conexion {
 	}
 
 	//////////////////////////// CONSULTAS/////////////////////////////////////////////////////
+	
+	
+	
+	// SELECTS
 
 	public ResultSet verConcesionario() {
 
@@ -128,6 +132,8 @@ public class Conexion {
 		return rs;
 	}
 
+	// BUSCADORES
+	
 	public ResultSet buscarConcesionario(String nombre) {
 		Conexion.LlamarInst();
 		PreparedStatement pst;
@@ -179,6 +185,9 @@ public class Conexion {
 		return rs;
 	}
 
+	
+	//INSERTS
+	
 	public void añadeCoche(String coche, String matriculaC, String TipoDeposito, Double consumo, int cantidadDeposito,
 			int precio) {
 		Conexion.LlamarInst();
@@ -201,36 +210,6 @@ public class Conexion {
 		}
 
 	}
-
-	public void ActualizarS(String matricula, int cantidad) {
-		PreparedStatement pst;
-		try {
-			pst = con.prepareStatement("UPDATE coches SET cantidadDeposito=? WHERE matriculaC =?");
-			pst.setInt(1, cantidad);
-			pst.setString(2, matricula);
-			pst.executeUpdate();
-
-		} catch (Exception e) {
-			e.getMessage();
-		}
-
-	}
-
-	public void borrarC(String matricula) {
-		PreparedStatement pst;
-
-		try {
-
-			pst = con.prepareStatement("DELETE FROM coches WHERE matriculaC =?");
-			pst.setString(1, matricula);
-			pst.execute();
-
-		} catch (Exception e) {
-			e.getMessage();
-		}
-
-	}
-
 	
 	public void compraCoche(String coche, String matriculaC, String TipoDeposito, Double consumo, int cantidadDeposito,
 			int precio) {
@@ -254,5 +233,57 @@ public class Conexion {
 		}
 
 	}
+	
+	
+	// UPDATE
+
+	public void ActualizarS(String matricula, int cantidad) {
+		PreparedStatement pst;
+		try {
+			pst = con.prepareStatement("UPDATE coches SET cantidadDeposito=? WHERE matriculaC =?");
+			pst.setInt(1, cantidad);
+			pst.setString(2, matricula);
+			pst.executeUpdate();
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
+	
+	// BORRADOS
+
+	public void borrarC(String matricula) {
+		PreparedStatement pst;
+
+		try {
+
+			pst = con.prepareStatement("DELETE FROM coches WHERE matriculaC =?");
+			pst.setString(1, matricula);
+			pst.execute();
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
+
+	
+	public void borrarcocheL(String matricula) {
+		PreparedStatement pst;
+
+		try {
+
+			pst = con.prepareStatement("DELETE FROM listaCompra WHERE matriculaC =?");
+			pst.setString(1, matricula);
+			pst.execute();
+
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+	}
+
+	
 	
 }
