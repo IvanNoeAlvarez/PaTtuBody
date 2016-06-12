@@ -18,13 +18,16 @@ import vista.*;
 public class Ventana extends JFrame {
 
 	private JPanel contentPane = new JPanel();
-
+	
+	
+// DECLARAR CONSTANTES TANTAS COMO JPANELS HAYA
 	final static String Principal = "Principal";
 	final static String Vehiculos = "Vehiculos";
 	final static String Buscar = "Buscar";
 	final static String Vender = "vender";
 	final static String Comprar = "comprar";
-
+	
+// INSTANCIAR CADA JPANEL
 	Principal v0 = new Principal();
 	Vehiculos v1 = new Vehiculos();
 	BuscarConcesionario v2 = new BuscarConcesionario();
@@ -58,7 +61,8 @@ public class Ventana extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
+		
+		// DECLARAR UN CardLayout y AÑADIR LOS PANELES
 		c1 = new CardLayout();
 		contentPane.setLayout(c1);
 
@@ -71,6 +75,7 @@ public class Ventana extends JFrame {
 		CardLayout c1 = (CardLayout) (contentPane.getLayout());
 		c1.show(contentPane, Principal);
 
+		// LLAMANDO A LOS GETTERS CAMBIAR SEGUN EL PANEL QUE QUIERAS MOSTRAR
 		v0.getañadir().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				c1.show(contentPane, Vender);

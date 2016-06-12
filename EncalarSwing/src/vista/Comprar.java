@@ -123,9 +123,11 @@ public class Comprar extends JPanel {
 		factura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				// VARIABLE QUE ACTUARA SOBRE EL CONTENIDO DE LA TABLA
 				int fila;
 				fila = table.getSelectedRow();
 
+				// VARIABLE SOBRE LA QUE SELECCIONARA DE LA TABLA SEGUN LA POSICION Y AÑADIRLA
 				String coche = (String) table.getValueAt(fila, 0);
 				String matriculaC = (String) table.getValueAt(fila, 1);
 				String TipoDeposito = (String) table.getValueAt(fila, 2);
@@ -135,8 +137,7 @@ public class Comprar extends JPanel {
 
 				GenerarFactura(coche, matriculaC, TipoDeposito, consumo, cantidadDeposito, precio);
 
-				System.out.println(coche);
-				System.out.println(matriculaC);
+				
 
 			}
 		});
@@ -152,10 +153,8 @@ public class Comprar extends JPanel {
 
 	}
 
-	public JButton getAtras() {
-		return atras;
-	}
-
+	
+// METODO QUE MOSTRARA LA TABLA CON LA COMPRA SOLAPANDO LA TABLA CON TODOS LOS DATOS
 	public void tabla() {
 		dtmC = new DefaultTableModel();
 
@@ -180,6 +179,8 @@ public class Comprar extends JPanel {
 
 	}
 
+	
+	// METODO QUE GENERARA UN PDF
 	public void GenerarFactura(String coche, String matriculaC, String TipoDeposito, Double consumo,
 			int cantidadDeposito, int precio) {
 
@@ -227,23 +228,30 @@ public class Comprar extends JPanel {
 
 	}
 
+	// SUMATORIO DEL NUMERO TOTAL DE DATOS EN LA TABLA
 	public void sumaFactura() {
 
+		//VARIABLE QUE ALMACENARA TODA LA SUMA
 		int total = 0;
-		// recorrer todas las filas de la segunda columna y va sumando las
-		// cantidades
+		
+		
+		// RECORRER TANTAS FILAS TENGA LA TABLA
 		for (int i = 0; i < dtmC.getRowCount(); i++) {
 			int numero = 0;
 			try {
-				// capturamos valor de celda
+				// CAPTURAR EL VALOR QUE QUERAMOS -ESTE CASO POSICION 5- EN UNA NUEVA VARIABLE
 				numero = Integer.valueOf(dtmC.getValueAt(i, 5).toString());
-			} catch (NumberFormatException nfe) { // si existe un error se
-													// coloca 0 a la celda
-				numero = 0;
-				dtmC.setValueAt(0, i, 1);
+			} catch (NumberFormatException nfe) { 
+				nfe.getMessage();
 			}
 			total += numero;
 		}
-		Total.setText(String.valueOf(total));
+		Total.setText(String.valueOf("Precio Total: "+total));
+	}
+	
+	public JButton getAtras() {
+		return atras;
 	}
 }
+
+

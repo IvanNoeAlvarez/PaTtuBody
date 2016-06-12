@@ -67,6 +67,8 @@ public class Principal extends JPanel {
 		gbc_buscar.gridy = 7;
 		panel.add(buscar, gbc_buscar);
 	}
+	
+	
 		public JButton getdisponible () {
 			return this.disponible;
 		}

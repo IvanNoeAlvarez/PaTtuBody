@@ -20,11 +20,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Añade extends JPanel {
+	//CAMPOS DE TEXTO
 	private JTextField cocheT;
 	private JTextField matriculaT;
 	private JTextField tipoT;
 	private JTextField cantT;
 	
+	//BOTONES
 	private JButton atras;
 	private JButton add;
 	private JTextField consumoT;
@@ -154,7 +156,7 @@ public class Añade extends JPanel {
 		 		
 		 		Conexion conex = Conexion.LlamarInst();
 		 		
-		 	
+		 	// IGUALAR NUEVAS VARIABLES A LAS RECOGIDAS POR EL TEXTIELD Y AÑADIRLAS
 		 		String coche = cocheT.getText().toString();
 		 		String matriculaC = matriculaT.getText().toString();
 		 		String TipoDeposito= tipoT.getText().toString();

@@ -17,9 +17,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class BuscarConcesionario extends JPanel {
+	// BOTON-CAMPO DE TEXTO Y TABLA
 	private JTable table;
 	private JTextField busquedaT;
 	private JButton Atras;
+	
+	// VARIABLES SOBRE ACCIONES DE LA BASE DE DATOS
 	ResultSet rs = null;
 	DefaultTableModel dtm;
 	DefaultTableModel dtmB;
@@ -51,6 +54,8 @@ public class BuscarConcesionario extends JPanel {
 				Conexion.LlamarInst();
 				String nombre = busquedaT.getText().toString();
 				rs = conex.buscarConcesionario(nombre);
+				
+				// DECLARAR UNA NUEVA TABLA DE BUSQUEDA QUE SOLAPARA LA TABLA QUE MUESTRA TODA LA LISTA
 				dtmB = new DefaultTableModel();
 				table.setModel(dtmB);
 				
@@ -82,8 +87,9 @@ public class BuscarConcesionario extends JPanel {
 
 	}
 
+	// METODO QUE MOSTRARA TODO EL CONTENIDO DE LA CONSULTA
 	public void tabla() {
-
+		
 		dtm = new DefaultTableModel();
 
 		table.setModel(dtm);

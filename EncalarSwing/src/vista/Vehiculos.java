@@ -20,18 +20,20 @@ import java.awt.GridLayout;
 
 public class Vehiculos extends JPanel {
 	private JTable table;
-	private JTextField buscarT;
-	DefaultTableModel dtm;
+	private JTextField buscarT;	
 	private JButton suministro;
 	private JPanel panel_1;
 	private JButton Atras;
-	ResultSet rs = null;
-
-	Conexion conex = Conexion.LlamarInst();
 	private JButton borrar;
 	private JPanel panelCentro;
 	private JButton comprar;
 	private JButton listaC;
+	
+	// ACCIONES SOBRE LA BASE DE DATOS
+	DefaultTableModel dtm;
+	ResultSet rs = null;
+	Conexion conex = Conexion.LlamarInst();
+	
 
 
 	/**
@@ -50,6 +52,8 @@ public class Vehiculos extends JPanel {
 		JButton buscar = new JButton("Buscar");
 		buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				// TABLA QUE TENDRA LA ACCION QUE HAGAMOS SOPLANDO LA DE TODOS LOS DATOS
 				DefaultTableModel dtmB = new DefaultTableModel();
 				String coche = buscarT.getText().toString();
 				Conexion.LlamarInst();
@@ -79,11 +83,15 @@ public class Vehiculos extends JPanel {
 		comprar = new JButton("Comprar");
 		comprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			
 				conex.LlamarInst();
 				
+				
+				// VARIABLE QUE ALMACENARA LA SELECCION DE LA TABLA
 				int fila;
 				fila = table.getSelectedRow();
-	
+				
+				//VARIABLES QUE ALMACENARAN EL CONTENIDO DE LA SELECCION Y LA AÑADE
 				String coche = (String) dtm.getValueAt(fila, 0);
 				String matriculaC = (String) dtm.getValueAt(fila, 1);
 				String TipoDeposito = (String) dtm.getValueAt(fila, 2);
@@ -93,7 +101,7 @@ public class Vehiculos extends JPanel {
 				
 				conex.compraCoche(coche, matriculaC, TipoDeposito, consumo, cantidadDeposito, precio);
 				
-			
+				table.updateUI();
 			}
 		});
 		panel.add(comprar);
@@ -112,10 +120,13 @@ public class Vehiculos extends JPanel {
 				int fila;
 				String matricula;
 
+				// SELECCIONA EL DATO SEGUN SU POSICION Y LO BORRA
 				fila = table.getSelectedRow();
 				matricula = (String) table.getValueAt(fila, 1);
 
 				conex.borrarC(matricula);
+				
+				
 
 				for (int i = 0; i < lineas; i++) {
 					dtm.removeRow(0);
@@ -142,7 +153,8 @@ public class Vehiculos extends JPanel {
 				String matricula;
 
 				int fila = table.getSelectedRow();
-
+				
+				// VARIABLE CANTIDAD QUE SE MODIFICARA SELECCIONADO POR PK (matricula)
 				matricula = (String) table.getValueAt(fila, 1);
 				cantidad = (Integer) table.getValueAt(fila, 4);
 				int lineas = table.getRowCount();
@@ -179,6 +191,7 @@ public class Vehiculos extends JPanel {
 
 	}
 
+	// METODO QUE MOSTRARA TODO EL CONTENIDO DE LA CONSULTA
 	public void tabla() {
 
 		dtm = new DefaultTableModel();
