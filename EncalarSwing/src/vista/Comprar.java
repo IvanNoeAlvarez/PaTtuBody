@@ -203,14 +203,18 @@ public class Comprar extends JPanel {
 	public void GenerarFactura(String coche, String matriculaC, String TipoDeposito, Double consumo,
 			int cantidadDeposito, int precio) {
 
+		String ruta = "C:\\Users\\Alvar_000\\git\\swingFinal\\EncalarSwing\\src\\Imagenes\\logo.png";
+
 		try {
 			fichero = new FileOutputStream("C:\\Users\\Alvar_000\\Desktop\\Factura.pdf");
 
 			leerP = PdfWriter.getInstance(Documento, fichero);
 
 			Documento.open();
+			
 
-			// imagen = Image.getInstance("Imagenes/logo.png");
+
+		//	 imagen = Image.getInstance(ruta);
 
 			contenidoP = leerP.getDirectContent();
 
@@ -236,9 +240,15 @@ public class Comprar extends JPanel {
 
 			contenidoP.setTextMatrix(50, 440);
 			contenidoP.showText("Precio: " + precio);
+			
+			contenidoP.setTextMatrix(50, 410);
+			contenidoP.showText("Total"+Total.getText().toString());
 
 			contenidoP.endText();
-
+			
+			
+	
+			
 			Documento.close();
 
 		} catch (Exception e) {

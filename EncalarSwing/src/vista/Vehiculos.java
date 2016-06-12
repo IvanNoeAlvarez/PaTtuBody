@@ -10,9 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 import javax.swing.table.DefaultTableModel;
-
 import Conexiones.Conexion_Consultas;
-
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
