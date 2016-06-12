@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.ParseConversionEvent;
 
-import Conexiones.Conexion;
+import Conexiones.Conexion_Consultas;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -156,7 +156,7 @@ public class Añade extends JPanel {
 		 add.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
 
-		 		Conexion conex = Conexion.LlamarInst();
+		 		Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 		
 		 		
 		 	// IGUALAR NUEVAS VARIABLES A LAS RECOGIDAS POR EL TEXTIELD Y AÑADIRLAS

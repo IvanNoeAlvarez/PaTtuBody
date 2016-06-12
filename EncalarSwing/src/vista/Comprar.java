@@ -18,7 +18,7 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.*;
-import Conexiones.Conexion;
+import Conexiones.Conexion_Consultas;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.SwingConstants;
@@ -44,7 +44,7 @@ public class Comprar extends JPanel {
 
 	// ACCIONES SOBRE LA BASE DE DATOS
 	ResultSet rs = null;
-	Conexion conex = Conexion.LlamarInst();
+	Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 	DefaultTableModel dtmC;
 
 	// CLASES PARA EL PDF

@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout;
 import javax.swing.table.DefaultTableModel;
 
-import Conexiones.Conexion;
+import Conexiones.Conexion_Consultas;
 
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -32,7 +32,7 @@ public class Vehiculos extends JPanel {
 	// ACCIONES SOBRE LA BASE DE DATOS
 	DefaultTableModel dtm;
 	ResultSet rs = null;
-	Conexion conex = Conexion.LlamarInst();
+	Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 
 	/**
 	 * Create the panel.
@@ -114,7 +114,7 @@ public class Vehiculos extends JPanel {
 
 		panel_1.add(Atras);
 
-		suministro = new JButton("A\u00F1ade suministro");
+		suministro = new JButton("Modifica suministro");
 		panel_1.add(suministro);
 		suministro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -132,7 +132,7 @@ public class Vehiculos extends JPanel {
 
 				int cant = Integer.parseInt(JOptionPane.showInputDialog("cantidad", cantidad));
 
-				Conexion conex = Conexion.LlamarInst();
+				Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 
 				for (int i = 0; i < lineas; i++) {
 					dtm.removeRow(0);
@@ -191,7 +191,7 @@ public class Vehiculos extends JPanel {
 		// TABLA QUE TENDRA LA ACCION QUE HAGAMOS SOPLANDO LA DE TODOS LOS DATOS
 		DefaultTableModel dtmB = new DefaultTableModel();
 		String coche = buscarT.getText().toString();
-		Conexion.LlamarInst();
+		Conexion_Consultas.LlamarInst();
 		rs = conex.buscarCoche(coche);
 
 		table.setModel(dtmB);

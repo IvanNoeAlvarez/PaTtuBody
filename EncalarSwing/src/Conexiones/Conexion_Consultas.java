@@ -9,12 +9,12 @@ import java.sql.SQLException;
 
 import javax.swing.table.DefaultTableModel;
 
-public class Conexion {
+public class Conexion_Consultas {
 
 	static Connection con; // ATRIBUTO PARA GUARDAR EL OBJETO CONEXION
-	private static Conexion INSTANCE = null;
+	private static Conexion_Consultas INSTANCE = null;
 
-	private Conexion() {
+	private Conexion_Consultas() {
 		datosConexion();
 
 	}
@@ -22,12 +22,12 @@ public class Conexion {
 	private synchronized static void crearInstancia() { // SI NO EXISTE UNA
 														// INSTANCE CREARLA
 		if (INSTANCE == null) {
-			INSTANCE = new Conexion();
+			INSTANCE = new Conexion_Consultas();
 
 		}
 	}
 
-	public static Conexion LlamarInst() { // LLAMAR A LA INSTANCE CREADA
+	public static Conexion_Consultas LlamarInst() { // LLAMAR A LA INSTANCE CREADA
 		if (INSTANCE == null)
 			crearInstancia();
 		return INSTANCE;
@@ -74,7 +74,7 @@ public class Conexion {
 
 	public ResultSet verConcesionario() {
 
-		Conexion conex = Conexion.LlamarInst();
+		Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 
 		java.sql.Statement st;
 
@@ -94,7 +94,7 @@ public class Conexion {
 
 	public ResultSet verClientes() {
 
-		Conexion conex = Conexion.LlamarInst();
+		Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 
 		java.sql.Statement st;
 
@@ -114,7 +114,7 @@ public class Conexion {
 	
 	public ResultSet verCompra() {
 
-		Conexion conex = Conexion.LlamarInst();
+		Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 
 		java.sql.Statement st;
 
@@ -134,7 +134,7 @@ public class Conexion {
 	
 	
 	public ResultSet verSumaFactura (int precio) {
-		Conexion conex = Conexion.LlamarInst();
+		Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 
 		java.sql.Statement st;
 
@@ -156,7 +156,7 @@ public class Conexion {
 	// BUSCADORES
 	
 	public ResultSet buscarConcesionario(String nombre) {
-		Conexion.LlamarInst();
+		Conexion_Consultas.LlamarInst();
 		PreparedStatement pst;
 		ResultSet rs = null;
 	
@@ -181,7 +181,7 @@ public class Conexion {
 	}
 
 	public ResultSet buscarCoche(String coche) {
-		Conexion.LlamarInst();
+		Conexion_Consultas.LlamarInst();
 		PreparedStatement pst;
 		ResultSet rs = null;
 		
@@ -211,7 +211,7 @@ public class Conexion {
 	
 	public void añadeCoche(String coche, String matriculaC, String TipoDeposito, Double consumo, int cantidadDeposito,
 			int precio) {
-		Conexion.LlamarInst();
+		Conexion_Consultas.LlamarInst();
 		PreparedStatement pst;
 
 		try {
@@ -234,7 +234,7 @@ public class Conexion {
 	
 	public void compraCoche(String coche, String matriculaC, String TipoDeposito, Double consumo, int cantidadDeposito,
 			int precio) {
-		Conexion.LlamarInst();
+		Conexion_Consultas.LlamarInst();
 		PreparedStatement pst;
 
 		try {
@@ -261,7 +261,7 @@ public class Conexion {
 	public void ActualizarS(String matricula, int cantidad) {
 		PreparedStatement pst;
 		try {
-			pst = con.prepareStatement("UPDATE coches SET cantidadDeposito=? WHERE matriculaC =?");
+			pst = con.prepareStatement("UPDATE coches SET cantidadDeposito = ? WHERE matriculaC =?");
 			pst.setInt(1, cantidad);
 			pst.setString(2, matricula);
 			pst.executeUpdate();

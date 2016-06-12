@@ -12,7 +12,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
-import Conexiones.Conexion;
+import Conexiones.Conexion_Consultas;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -26,7 +26,7 @@ public class BuscarConcesionario extends JPanel {
 	ResultSet rs = null;
 	DefaultTableModel dtm;
 	DefaultTableModel dtmB;
-	Conexion conex = Conexion.LlamarInst();
+	Conexion_Consultas conex = Conexion_Consultas.LlamarInst();
 
 	/**
 	 * Create the panel.
@@ -51,7 +51,7 @@ public class BuscarConcesionario extends JPanel {
 		JButton busqueda = new JButton("Buscar");
 		busqueda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Conexion.LlamarInst();
+				Conexion_Consultas.LlamarInst();
 				String nombre = busquedaT.getText().toString();
 				rs = conex.buscarConcesionario(nombre);
 				
