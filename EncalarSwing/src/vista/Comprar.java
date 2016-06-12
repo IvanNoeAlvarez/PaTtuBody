@@ -26,6 +26,9 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
 import java.awt.SystemColor;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class Comprar extends JPanel {
 
@@ -70,13 +73,37 @@ public class Comprar extends JPanel {
 
 		panel_1 = new JPanel();
 		scrollPane.setRowHeaderView(panel_1);
-		panel_1.setLayout(new BorderLayout(0, 0));
-
-		Total = new JTextField();
-		Total.setForeground(SystemColor.windowBorder);
-		Total.setText("Total...");
-		panel_1.add(Total, BorderLayout.SOUTH);
-		Total.setColumns(10);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{86, 0};
+		gbl_panel_1.rowHeights = new int[]{245, 20, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+				
+				btnTotal = new JButton("Total");
+				btnTotal.setVerticalAlignment(SwingConstants.BOTTOM);
+				GridBagConstraints gbc_btnTotal = new GridBagConstraints();
+				gbc_btnTotal.fill = GridBagConstraints.HORIZONTAL;
+				gbc_btnTotal.anchor = GridBagConstraints.SOUTH;
+				gbc_btnTotal.insets = new Insets(0, 0, 5, 0);
+				gbc_btnTotal.gridx = 0;
+				gbc_btnTotal.gridy = 0;
+				panel_1.add(btnTotal, gbc_btnTotal);
+				btnTotal.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						sumaFactura();
+					}
+				});
+		
+				Total = new JTextField();
+				Total.setForeground(SystemColor.windowBorder);
+				Total.setText("Total...");
+				GridBagConstraints gbc_Total = new GridBagConstraints();
+				gbc_Total.anchor = GridBagConstraints.NORTH;
+				gbc_Total.gridx = 0;
+				gbc_Total.gridy = 1;
+				panel_1.add(Total, gbc_Total);
+				Total.setColumns(10);
 
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);
@@ -128,12 +155,12 @@ public class Comprar extends JPanel {
 				fila = table.getSelectedRow();
 
 				// VARIABLE SOBRE LA QUE SELECCIONARA DE LA TABLA SEGUN LA POSICION Y AÑADIRLA
-				String coche = (String) table.getValueAt(fila, 0);
-				String matriculaC = (String) table.getValueAt(fila, 1);
-				String TipoDeposito = (String) table.getValueAt(fila, 2);
-				Double consumo = (Double) table.getValueAt(fila, 3);
-				Integer cantidadDeposito = (Integer) table.getValueAt(fila, 4);
-				Integer precio = (Integer) table.getValueAt(fila, 5);
+				String coche = (String) dtmC.getValueAt(fila, 0);
+				String matriculaC = (String) dtmC.getValueAt(fila, 1);
+				String TipoDeposito = (String) dtmC.getValueAt(fila, 2);
+				Double consumo = (Double) dtmC.getValueAt(fila, 3);
+				Integer cantidadDeposito = (Integer) dtmC.getValueAt(fila, 4);
+				Integer precio = (Integer) dtmC.getValueAt(fila, 5);
 
 				GenerarFactura(coche, matriculaC, TipoDeposito, consumo, cantidadDeposito, precio);
 
@@ -141,14 +168,6 @@ public class Comprar extends JPanel {
 
 			}
 		});
-		
-		btnTotal = new JButton("Total");
-		btnTotal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sumaFactura();
-			}
-		});
-		panel.add(btnTotal);
 		panel.add(factura);
 
 	}
@@ -246,7 +265,7 @@ public class Comprar extends JPanel {
 			}
 			total += numero;
 		}
-		Total.setText(String.valueOf("Precio Total: "+total));
+		Total.setText(String.valueOf(total+" €"));
 	}
 	
 	public JButton getAtras() {

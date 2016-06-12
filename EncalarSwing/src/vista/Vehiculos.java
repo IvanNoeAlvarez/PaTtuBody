@@ -20,7 +20,7 @@ import java.awt.GridLayout;
 
 public class Vehiculos extends JPanel {
 	private JTable table;
-	private JTextField buscarT;	
+	private JTextField buscarT;
 	private JButton suministro;
 	private JPanel panel_1;
 	private JButton Atras;
@@ -28,13 +28,11 @@ public class Vehiculos extends JPanel {
 	private JPanel panelCentro;
 	private JButton comprar;
 	private JButton listaC;
-	
+
 	// ACCIONES SOBRE LA BASE DE DATOS
 	DefaultTableModel dtm;
 	ResultSet rs = null;
 	Conexion conex = Conexion.LlamarInst();
-	
-
 
 	/**
 	 * Create the panel.
@@ -49,65 +47,44 @@ public class Vehiculos extends JPanel {
 		panel.add(buscarT);
 		buscarT.setColumns(10);
 
+
+
 		JButton buscar = new JButton("Buscar");
 		buscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				// TABLA QUE TENDRA LA ACCION QUE HAGAMOS SOPLANDO LA DE TODOS LOS DATOS
-				DefaultTableModel dtmB = new DefaultTableModel();
-				String coche = buscarT.getText().toString();
-				Conexion.LlamarInst();
-				rs = conex.buscarCoche(coche);
-
-				table.setModel(dtmB);
-				dtmB.setColumnIdentifiers(
-						new Object[] { "Coche", "matricula", "Deposito", "Consumo", "Cantidad", "Precio €" });
-
-				try {
-
-					while (rs.next()) {
-						dtmB.addRow(new Object[] { rs.getString("coche"), rs.getString("matriculaC"),
-								rs.getString("TipoDeposito"), rs.getDouble("consumo"), rs.getInt("cantidadDeposito"),
-								rs.getInt("precio") });
-
-					}
-
-				} catch (Exception ex) {
-					ex.getMessage();
-				}
+				buscarC();
 
 			}
 		});
 		panel.add(buscar);
-	
+
 		comprar = new JButton("Comprar");
 		comprar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
+
 				conex.LlamarInst();
-				
-				
+
 				// VARIABLE QUE ALMACENARA LA SELECCION DE LA TABLA
 				int fila;
 				fila = table.getSelectedRow();
-				
-				//VARIABLES QUE ALMACENARAN EL CONTENIDO DE LA SELECCION Y LA AÑADE
+
+				// VARIABLES QUE ALMACENARAN EL CONTENIDO DE LA SELECCION Y LA
+				// AÑADE
 				String coche = (String) dtm.getValueAt(fila, 0);
 				String matriculaC = (String) dtm.getValueAt(fila, 1);
 				String TipoDeposito = (String) dtm.getValueAt(fila, 2);
 				Double consumo = (Double) dtm.getValueAt(fila, 3);
 				Integer cantidadDeposito = (Integer) dtm.getValueAt(fila, 4);
 				Integer precio = (Integer) dtm.getValueAt(fila, 5);
-				
+
 				conex.compraCoche(coche, matriculaC, TipoDeposito, consumo, cantidadDeposito, precio);
-				
-				table.updateUI();
+
 			}
 		});
 		panel.add(comprar);
 
 		listaC = new JButton("Lista de Compra");
-		
+
 		panel.add(listaC);
 		panel_1 = new JPanel();
 		add(panel_1, BorderLayout.SOUTH);
@@ -116,7 +93,7 @@ public class Vehiculos extends JPanel {
 		panel_1.add(borrar);
 		borrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int lineas = table.getRowCount();
+
 				int fila;
 				String matricula;
 
@@ -125,13 +102,6 @@ public class Vehiculos extends JPanel {
 				matricula = (String) table.getValueAt(fila, 1);
 
 				conex.borrarC(matricula);
-				
-				
-
-				for (int i = 0; i < lineas; i++) {
-					dtm.removeRow(0);
-
-				}
 
 				tabla();
 
@@ -153,8 +123,9 @@ public class Vehiculos extends JPanel {
 				String matricula;
 
 				int fila = table.getSelectedRow();
-				
-				// VARIABLE CANTIDAD QUE SE MODIFICARA SELECCIONADO POR PK (matricula)
+
+				// VARIABLE CANTIDAD QUE SE MODIFICARA SELECCIONADO POR PK
+				// (matricula)
 				matricula = (String) table.getValueAt(fila, 1);
 				cantidad = (Integer) table.getValueAt(fila, 4);
 				int lineas = table.getRowCount();
@@ -214,6 +185,30 @@ public class Vehiculos extends JPanel {
 			e.getMessage();
 		}
 
+	}
+
+	public void buscarC() {
+		// TABLA QUE TENDRA LA ACCION QUE HAGAMOS SOPLANDO LA DE TODOS LOS DATOS
+		DefaultTableModel dtmB = new DefaultTableModel();
+		String coche = buscarT.getText().toString();
+		Conexion.LlamarInst();
+		rs = conex.buscarCoche(coche);
+
+		table.setModel(dtmB);
+		dtmB.setColumnIdentifiers(new Object[] { "Coche", "matricula", "Deposito", "Consumo", "Cantidad", "Precio €" });
+
+		try {
+
+			while (rs.next()) {
+				dtmB.addRow(
+						new Object[] { rs.getString("coche"), rs.getString("matriculaC"), rs.getString("TipoDeposito"),
+								rs.getDouble("consumo"), rs.getInt("cantidadDeposito"), rs.getInt("precio") });
+
+			}
+
+		} catch (Exception ex) {
+			ex.getMessage();
+		}
 	}
 
 	public JButton getsuministro() {

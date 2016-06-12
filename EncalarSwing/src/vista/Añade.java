@@ -11,6 +11,7 @@ import java.awt.Insets;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.xml.bind.ParseConversionEvent;
 
 import Conexiones.Conexion;
@@ -39,6 +40,7 @@ public class Añade extends JPanel {
 		setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelD = new JPanel();
+		
 		add(panelD, BorderLayout.CENTER);
 		GridBagLayout gbl_panelD = new GridBagLayout();
 		gbl_panelD.columnWidths = new int[]{97, 86, 86, 0};
@@ -153,8 +155,9 @@ public class Añade extends JPanel {
 		 add = new JButton("A\u00F1adir");
 		 add.addActionListener(new ActionListener() {
 		 	public void actionPerformed(ActionEvent arg0) {
-		 		
+
 		 		Conexion conex = Conexion.LlamarInst();
+		
 		 		
 		 	// IGUALAR NUEVAS VARIABLES A LAS RECOGIDAS POR EL TEXTIELD Y AÑADIRLAS
 		 		String coche = cocheT.getText().toString();
@@ -163,9 +166,13 @@ public class Añade extends JPanel {
 		 		Double consumo = Double.parseDouble(consumoT.getText().toString());
 		 		Integer cantidadDeposito = Integer.parseInt(cantT.getText().toString());
 		 		Integer precio = Integer.parseInt(precioT.getText().toString());
-		 		conex.añadeCoche( coche, matriculaC, TipoDeposito,consumo, cantidadDeposito,precio);
-		 			
+		 	 	conex.añadeCoche( coche, matriculaC, TipoDeposito,consumo, cantidadDeposito,precio);
+
+
 		 		JOptionPane.showMessageDialog(null, "COCHE AÑADIDO CORRECTAMENTE");
+		 		
+		 	
+		 		
 		 	}
 		 });
 		panelInf.add(add);

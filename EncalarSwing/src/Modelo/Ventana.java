@@ -36,6 +36,7 @@ public class Ventana extends JFrame {
 
 	CardLayout c1;
 
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -56,6 +57,10 @@ public class Ventana extends JFrame {
 	 */
 	public Ventana() {
 		
+		Fondo image=new Fondo();
+	       
+	    
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -65,7 +70,6 @@ public class Ventana extends JFrame {
 		// DECLARAR UN CardLayout y AÑADIR LOS PANELES
 		c1 = new CardLayout();
 		contentPane.setLayout(c1);
-
 		contentPane.add(v0, Principal);
 		contentPane.add(v1, Vehiculos);
 		contentPane.add(v2, Buscar);
@@ -74,7 +78,7 @@ public class Ventana extends JFrame {
 
 		CardLayout c1 = (CardLayout) (contentPane.getLayout());
 		c1.show(contentPane, Principal);
-
+		
 		// LLAMANDO A LOS GETTERS CAMBIAR SEGUN EL PANEL QUE QUIERAS MOSTRAR
 		v0.getañadir().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
