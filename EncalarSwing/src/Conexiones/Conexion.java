@@ -131,6 +131,27 @@ public class Conexion {
 		}
 		return rs;
 	}
+	
+	
+	public ResultSet verSumaFactura (int precio) {
+		Conexion conex = Conexion.LlamarInst();
+
+		java.sql.Statement st;
+
+		ResultSet rs = null;
+		
+		try{
+			
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT SUM(precio) AS Total FROM listaCompra;");
+			
+			
+		}catch (SQLException e){
+			e.getMessage();
+		}
+		
+		return rs;
+	}
 
 	// BUSCADORES
 	

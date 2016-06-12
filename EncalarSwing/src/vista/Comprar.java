@@ -1,30 +1,31 @@
 package vista;
 
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.sql.ResultSet;
 
+import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.log.SysoCounter;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.*;
 import Conexiones.Conexion;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
-import java.sql.ResultSet;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+
+import java.awt.SystemColor;
 
 public class Comprar extends JPanel {
 
@@ -50,11 +51,15 @@ public class Comprar extends JPanel {
 	PdfContentByte contenidoP;
 	FileOutputStream fichero;
 	BaseFont tipografia;
+	private JPanel panel_1;
+	private JTextField Total;
+	private JButton btnTotal;
 
 	/**
 	 * Create the panel.
 	 */
 	public Comprar() {
+
 		setLayout(new BorderLayout(0, 0));
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -62,6 +67,16 @@ public class Comprar extends JPanel {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
+
+		panel_1 = new JPanel();
+		scrollPane.setRowHeaderView(panel_1);
+		panel_1.setLayout(new BorderLayout(0, 0));
+
+		Total = new JTextField();
+		Total.setForeground(SystemColor.windowBorder);
+		Total.setText("Total...");
+		panel_1.add(Total, BorderLayout.SOUTH);
+		Total.setColumns(10);
 
 		JPanel panel = new JPanel();
 		add(panel, BorderLayout.SOUTH);
@@ -120,12 +135,19 @@ public class Comprar extends JPanel {
 
 				GenerarFactura(coche, matriculaC, TipoDeposito, consumo, cantidadDeposito, precio);
 
-			
 				System.out.println(coche);
 				System.out.println(matriculaC);
 
 			}
 		});
+		
+		btnTotal = new JButton("Total");
+		btnTotal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sumaFactura();
+			}
+		});
+		panel.add(btnTotal);
 		panel.add(factura);
 
 	}
@@ -161,18 +183,14 @@ public class Comprar extends JPanel {
 	public void GenerarFactura(String coche, String matriculaC, String TipoDeposito, Double consumo,
 			int cantidadDeposito, int precio) {
 
-		String ruta = "libreria/logo.png";
-
 		try {
 			fichero = new FileOutputStream("C:\\Users\\Alvar_000\\Desktop\\Factura.pdf");
 
 			leerP = PdfWriter.getInstance(Documento, fichero);
 
 			Documento.open();
-			
 
-
-			/* imagen = Image.getInstance("\\libreria\\logo.png");
+			// imagen = Image.getInstance("Imagenes/logo.png");
 
 			contenidoP = leerP.getDirectContent();
 
@@ -200,10 +218,7 @@ public class Comprar extends JPanel {
 			contenidoP.showText("Precio: " + precio);
 
 			contenidoP.endText();
-			
-			
-	*/
-			
+
 			Documento.close();
 
 		} catch (Exception e) {
@@ -212,4 +227,23 @@ public class Comprar extends JPanel {
 
 	}
 
+	public void sumaFactura() {
+
+		int total = 0;
+		// recorrer todas las filas de la segunda columna y va sumando las
+		// cantidades
+		for (int i = 0; i < dtmC.getRowCount(); i++) {
+			int numero = 0;
+			try {
+				// capturamos valor de celda
+				numero = Integer.valueOf(dtmC.getValueAt(i, 5).toString());
+			} catch (NumberFormatException nfe) { // si existe un error se
+													// coloca 0 a la celda
+				numero = 0;
+				dtmC.setValueAt(0, i, 1);
+			}
+			total += numero;
+		}
+		Total.setText(String.valueOf(total));
+	}
 }

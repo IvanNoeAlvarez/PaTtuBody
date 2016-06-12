@@ -52,7 +52,6 @@ public class Ventana extends JFrame {
 	 * Create the frame.
 	 */
 	public Ventana() {
-		Fondo f = new Fondo();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
